@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+
+    let input = 0;
+    let balance = 0;
+    let withdrawal = 0;
+    let deposit = 0;
+    
+    while (input!='q') {
+      
+      input = prompt('Please choose an Action:\n\n' +
+                  'Enter "W" to withdraw \n' +
+                  'Enter "D" to deposit \n' +
+                  'Enter "B" to view balance\n' +
+                  'Enter "Q" to quit');
+      
+      if (input==null) continue;
+      //I will be very specific here, the instructions say: "The program will loop asking for input UNTIL the user enters Q." Null is not Q, so the program will continue to run even if the user clicks cancel. 
+      //sometimes if you really mash the esc key though it will close the prompt, might be a codepen.io thing. 
+      
+    switch(input.toLowerCase()) {
+      case 'w':
+        if (balance === 0) {
+          alert('You cannot withdraw money if your balance is zero!');
+          break;
+
+        } 
+        withdrawal = Number(prompt('Please enter the amount you wish to withdraw from your account'));
+        if (isNaN(withdrawal)) {
+          alert('Please enter a number only!');
+          break;
+        }
+        let dollarWithdrawal = Number(withdrawal.toFixed(2));
+        if (dollarWithdrawal > balance) {
+          alert('You cannot withdraw an amount that exceeds your balance!')
+        } else {
+          if (balance >= 300 && (balance - dollarWithdrawal) < 300) {
+            let r = confirm('This withdrawal will leave you with less than $300, are you sure you would like to continue?'); 
+            if (!r) break;
+          } 
+          balance -= dollarWithdrawal;
+          balance = Number(balance.toFixed(2));
+          if(balance < 100) {
+            alert(`LOW BALANCE ALERT:\n Your balance is currently at $${balance}`)
+          }
+        }
+        break;  
+        
+      case 'd': 
+        deposit = Number(prompt('Please enter the amount you wish to deposit'));
+        if (isNaN(deposit)) {
+          alert('Please enter a number only!');
+          break;
+        }
+        let dollarDeposit = deposit.toFixed(2);
+        if (dollarDeposit > 50000) {
+          alert('You cannot deposit more than $50,000 at a time!');
+        } else if (dollarDeposit === 0) {
+          alert('Your deposit cannot be 0!');
+        } else {
+          balance +=deposit;
+          balance = Number(balance.toFixed(2));
+        }
+        break;
+        
+      case 'b': 
+        alert(`Your current balance is: $${balance}`);
+        break;
+      
+      case 'q':
+        break;
+        
+      default: 
+        alert('Please input one of the four (4) options');
+        break;
+    }
+  }
+  </script>
+  <title>Document</title>
+</head>
+<body>
+  <h1>Hello</h1>
+</body>
+</html>
